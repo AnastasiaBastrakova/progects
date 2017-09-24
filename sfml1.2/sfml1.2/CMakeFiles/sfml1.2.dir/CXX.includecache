@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/sfml1.2/main.cpp
+SFML/Graphics.hpp
+-
+SFML/System.hpp
+-
+SFML/Window.hpp
+-
+

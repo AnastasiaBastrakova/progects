@@ -1,0 +1,3 @@
+D:\StudiesPS11\Visual_Studio\CppDistro\CppDistro\cmake\bin\cmake.exe -E remove -f CMakeFiles\sfml1.2.dir/objects.a
+D:\StudiesPS11\Visual_Studio\CppDistro\CppDistro\MinGW\bin\ar.exe cr CMakeFiles\sfml1.2.dir/objects.a @CMakeFiles\sfml1.2.dir\objects1.rsp
+D:\StudiesPS11\Visual_Studio\CppDistro\CppDistro\MinGW\bin\g++.exe    -Wl,--whole-archive CMakeFiles\sfml1.2.dir/objects.a -Wl,--no-whole-archive  -o sfml1.2.exe -Wl,--out-implib,libsfml1.2.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\sfml1.2.dir\linklibs.rsp
