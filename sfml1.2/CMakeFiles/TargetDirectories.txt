@@ -1,5 +1,0 @@
-D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/CMakeFiles/edit_cache.dir
-D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/CMakeFiles/rebuild_cache.dir
-D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/sfml1.2/CMakeFiles/sfml1.2.dir
-D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/sfml1.2/CMakeFiles/edit_cache.dir
-D:/StudiesPS11/Visual_Studio/Progects/progects/sfml1.2/sfml1.2/CMakeFiles/rebuild_cache.dir
