@@ -109,22 +109,22 @@ int main()
 
     sf::CircleShape shape16(15);
     shape16.setPosition({450, 72});
-    shape16.setFillColor(sf::Color(139, 99, 108));
+    shape16.setFillColor(sf::Color(79, 148, 205));
     window.draw(shape16);
 
     sf::CircleShape shape17(17);
-    shape17.setPosition({458, 55});
-    shape17.setFillColor(sf::Color(205, 145, 158));
+    shape17.setPosition({457, 55});
+    shape17.setFillColor(sf::Color(108, 166, 205));
     window.draw(shape17);
 
     sf::CircleShape shape18(20);
     shape18.setPosition({470, 35});
-    shape18.setFillColor(sf::Color(238, 169, 184));
+    shape18.setFillColor(sf::Color(126, 192, 238));
     window.draw(shape18);
 
     sf::CircleShape shape19(23);
-    shape19.setPosition({482, 16});
-    shape19.setFillColor(sf::Color(255, 192, 203));
+    shape19.setPosition({485, 16});
+    shape19.setFillColor(sf::Color(135, 206, 255));
     window.draw(shape19);
 
     window.display();
