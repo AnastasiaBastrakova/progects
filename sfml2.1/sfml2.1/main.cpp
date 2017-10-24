@@ -20,6 +20,7 @@ int main()
     float speedX = 100.f;
 
     float time = 0;
+    float x = 0.f;
 
     while (window.isOpen())
     {
