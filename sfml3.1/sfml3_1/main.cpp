@@ -12,7 +12,6 @@ void init(sf::ConvexShape &pointer)
     pointer.setPoint(1, {-20, -20});
     pointer.setPoint(2, {-20, 20});
     pointer.setPosition({400, 300});
-    pointer.setFillColor(sf::Color(0xFF, 0x80, 0x00));
 }
 
 void OnMouseMove(sf::Event::MouseMoveEvent &event, sf::Vector2f &MousePosition)
@@ -64,22 +63,25 @@ void update(const sf::Vector2f &mousePosition, sf::ConvexShape &pointer, float t
     }
     float maxAngleRotation = speedRoute * time * maxAngleSpeed;
 
+    //условие остановки
     float nextPointerAngle = 0;
     if (std::abs(deltaAngle) < std::abs(maxAngleRotation))
     {
         nextPointerAngle = pointer.getRotation() + deltaAngle;
         pointer.setRotation(nextPointerAngle);
+        pointer.setFillColor(sf::Color(42, 212, 90));
     }
     else
     {
         nextPointerAngle = pointer.getRotation() + maxAngleRotation;
         pointer.setRotation(nextPointerAngle);
+        pointer.setFillColor(sf::Color(201, 63, 50));
     }
 }
 
 void redrawFrame(sf::RenderWindow &window, sf::ConvexShape &pointer)
 {
-    window.clear();
+    window.clear(sf::Color(255, 255, 255));
     window.draw(pointer);
     window.display();
 }
@@ -93,7 +95,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Where is our cursor?", sf::Style::Default, settings);
 
     //часы
     sf::Clock clock;
@@ -110,6 +112,7 @@ int main()
         {
             if (event.type == sf::Event::Closed)
             {
+                window.clear(sf::Color(255, 255, 255));
                 window.close();
             }
             if (event.type == sf::Event::MouseMoved)
