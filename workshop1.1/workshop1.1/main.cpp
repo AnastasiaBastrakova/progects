@@ -9,21 +9,19 @@
 struct Arrow
 {
     sf::ConvexShape pointer;
-    void update(sf::Vector2f MousePosition, float time);
-    void initialization(sf::Vector2f position);
-    sf::Vector2f toMove(float currentAngle, float time);
-    void draw(sf::RenderWindow &Window);
 };
 
-void Arrow::initialization(sf::Vector2f position)
+void initialization(sf::ConvexShape &pointer)
 {
-    pointer.setFillColor(sf::Color(88, 88, 88));
+    pointer.setPosition(400, 300);
+
+    pointer.setFillColor(sf::Color(255, 255, 200));
     pointer.setOutlineThickness(1);
     pointer.setOutlineColor(sf::Color(0, 0, 0));
-    pointer.setPosition(position);
 
     pointer.setPointCount(7);
     pointer.setRotation(0);
+    pointer.setOrigin({-50, 0});
     pointer.setScale(-1, 1);
 
     pointer.setPoint(0, {0, -40});
@@ -35,9 +33,11 @@ void Arrow::initialization(sf::Vector2f position)
     pointer.setPoint(6, {-50, 0});
 }
 
-void Arrow::draw(sf::RenderWindow &Window)
+void redrawFrame(sf::RenderWindow &window, sf::ConvexShape &pointer)
 {
-    Window.draw(pointer);
+    window.clear(sf::Color(255, 255, 255));
+    window.draw(pointer);
+    window.display();
 }
 
 int main()
@@ -52,8 +52,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.1", sf::Style::Default, settings);
 
     // стрелка
-    Arrow pointer;
-    pointer.initialization(sf::Vector2f({WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2}));
+    sf::ConvexShape pointer;
+    initialization(pointer);
 
     while (window.isOpen())
     {
@@ -65,8 +65,6 @@ int main()
                 window.close();
             }
         }
-        window.clear(sf::Color(255, 255, 255));
-        pointer.draw(window);
-        window.display();
+        redrawFrame(window, pointer);
     }
 }
