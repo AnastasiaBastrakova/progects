@@ -74,8 +74,8 @@ int main()
 
             //маленький шаг
             time = clock.restart().asSeconds();
-            const float maxSpeedCat = 1;
-            sf::Vector2f maxStepCat = time * maxSpeedCat * deltaVector;
+            const float maxSpeedCat = 20;
+            sf::Vector2f maxStepCat = time * maxSpeedCat * deltaVector / std::hypotf(deltaVector.x, deltaVector.y);
 
             //Шаги
             if (std::hypotf(deltaVector.x, deltaVector.y) > std::hypotf(maxStepCat.x, maxStepCat.y))
