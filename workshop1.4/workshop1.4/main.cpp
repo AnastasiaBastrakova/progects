@@ -10,11 +10,11 @@ int main()
     constexpr unsigned WINDOW_WIDTH = 800;
     constexpr unsigned WINDOW_HEIGHT = 600;
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.4 'А я бегу, бегу, бегу, бегу...'");
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.4 myaooooooo...");
 
     //текстура кот
     sf::Texture cat;
-    cat.loadFromFile("cat.png");
+    cat.loadFromFile("images/cat.png");
 
     sf::Sprite spriteCat;
     spriteCat.setTexture(cat);
@@ -24,7 +24,7 @@ int main()
 
     //текстура лазер
     sf::Texture laser;
-    laser.loadFromFile("laser.png");
+    laser.loadFromFile("images/laser.png");
 
     sf::Sprite spriteLaser;
     spriteLaser.setTexture(laser);
@@ -74,7 +74,7 @@ int main()
 
             //маленький шаг
             time = clock.restart().asSeconds();
-            const float maxSpeedCat = 20;
+            const float maxSpeedCat = 100;
             sf::Vector2f maxStepCat = time * maxSpeedCat * deltaVector / std::hypotf(deltaVector.x, deltaVector.y);
 
             //Шаги
