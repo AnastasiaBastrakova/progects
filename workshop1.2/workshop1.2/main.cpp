@@ -40,9 +40,9 @@ void redrawFrame(sf::RenderWindow &window, sf::ConvexShape &pointer)
     window.display();
 }
 
-void OnMouseMove(sf::Event::MouseMoveEvent &event, sf::Vector2f &MousePosition)
+void onMouseMove(sf::Event::MouseMoveEvent &event, sf::Vector2f &mousePosition)
 {
-    MousePosition = {float(event.x), float(event.y)};
+    mousePosition = {float(event.x), float(event.y)};
 }
 
 float toDegrees(float radians)
@@ -121,7 +121,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.1", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.2", sf::Style::Default, settings);
 
     //часы
     sf::Clock clock;
@@ -129,7 +129,7 @@ int main()
     // стрелка  и позиция мыши
     sf::ConvexShape pointer;
     initialization(pointer);
-    sf::Vector2f MousePosition;
+    sf::Vector2f mousePosition;
 
     while (window.isOpen())
     {
@@ -142,10 +142,10 @@ int main()
             }
             if (event.type == sf::Event::MouseMoved)
             {
-                OnMouseMove(event.mouseMove, MousePosition);
+                onMouseMove(event.mouseMove, mousePosition);
             }
         }
-        update(MousePosition, pointer, clock.restart().asSeconds());
+        update(mousePosition, pointer, clock.restart().asSeconds());
         redrawFrame(window, pointer);
     }
 }
