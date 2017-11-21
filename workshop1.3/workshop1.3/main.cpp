@@ -11,13 +11,13 @@ int main()
     constexpr unsigned WINDOW_HEIGHT = 600;
 
     sf::Texture texture;
-    texture.loadFromFile("cat.png");
+    texture.loadFromFile("images/cat.png");
 
     sf::Sprite sprite;
     sprite.setTexture(texture);
     sprite.setPosition(400, 300);
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop");
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop1.3");
 
     while (window.isOpen())
     {
