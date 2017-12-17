@@ -34,7 +34,7 @@ void initBalls(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &s
 {
     for (int i = 0; i < std::size(balls); ++i)
     {
-        balls[i].setOutlineThickness(5);
+        balls[i].setOutlineThickness(1);
         balls[i].setOutlineColor(sf::Color(255, 255, 255, 50));
         int color1 = (random(generator, 0, 256));
         int color2 = (random(generator, 0, 256));
@@ -43,8 +43,8 @@ void initBalls(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &s
         balls[i].setTexture(&font2);
         balls[i].setTextureRect(sf::IntRect(1, 1, 2 * balls[i].getRadius(), 2 * balls[i].getRadius()));
         balls[i].setFillColor(sf::Color(color1, color2, color3));
-        speed[i].x = (random(generator, 0, 1000)) - 500.f;
-        speed[i].y = (random(generator, 0, 1000)) - 500.f;
+        speed[i].x = (random(generator, 0, 500)) - 250.f;
+        speed[i].y = (random(generator, 0, 500)) - 250.f;
         balls[i].setOrigin({balls[i].getRadius(), balls[i].getRadius()});
         float x = random(generator, balls[i].getRadius(), WINDOW_WIDTH - balls[i].getRadius());
         float y = random(generator, balls[i].getRadius(), WINDOW_HEIGHT - balls[i].getRadius());
@@ -56,51 +56,52 @@ void update(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &spee
 {
     sf::Vector2f minStep;
     sf::Vector2f newBallPos;
-    for (int i = 0; i < std::size(balls); ++i)
+    for (int k = 0; k < 5; ++k)
     {
-        for (int j = i + 1; j < std::size(balls); ++j)
+        for (int i = 0; i < std::size(balls); ++i)
         {
-            if (std::hypotf((balls[i].getPosition().x - balls[j].getPosition().x), (balls[i].getPosition().y - balls[j].getPosition().y)) <= (balls[i].getRadius() + balls[j].getRadius()))
+            for (int j = i + 1; j < std::size(balls); ++j)
             {
-                sf::Vector2f speedDifference1 = speed[i] - speed[j];
-                sf::Vector2f positionDifference1 = {balls[i].getPosition().x - balls[j].getPosition().x, balls[i].getPosition().y - balls[j].getPosition().y};
-                sf::Vector2f speedDifference2 = speed[j] - speed[i];
-                sf::Vector2f positionDifference2 = {balls[j].getPosition().x - balls[i].getPosition().x, balls[j].getPosition().y - balls[i].getPosition().y};
-                float scalarPr1 = speedDifference1.x * positionDifference1.x + speedDifference1.y * positionDifference1.y;
-                float scalarPr2 = positionDifference2.x * speedDifference2.x + positionDifference2.y * speedDifference2.y;
-                speed[i] = speed[i] - positionDifference1 * (scalarPr1 / ((std::hypotf(positionDifference1.x, positionDifference1.y)) * (std::hypotf(positionDifference1.x, positionDifference1.y))));
-                speed[j] = speed[j] - positionDifference2 * (scalarPr2 / ((std::hypotf(positionDifference2.x, positionDifference2.y)) * (std::hypotf(positionDifference2.x, positionDifference2.y))));
+                if (std::hypotf((balls[i].getPosition().x - balls[j].getPosition().x), (balls[i].getPosition().y - balls[j].getPosition().y)) <= (balls[i].getRadius() + balls[j].getRadius()))
+                {
+                    sf::Vector2f speedDifference1 = speed[i] - speed[j];
+                    sf::Vector2f positionDifference1 = {balls[i].getPosition().x - balls[j].getPosition().x, balls[i].getPosition().y - balls[j].getPosition().y};
+                    sf::Vector2f speedDifference2 = speed[j] - speed[i];
+                    sf::Vector2f positionDifference2 = {balls[j].getPosition().x - balls[i].getPosition().x, balls[j].getPosition().y - balls[i].getPosition().y};
+                    float scalarPr1 = speedDifference1.x * positionDifference1.x + speedDifference1.y * positionDifference1.y;
+                    float scalarPr2 = positionDifference2.x * speedDifference2.x + positionDifference2.y * speedDifference2.y;
+                    speed[i] = speed[i] - positionDifference1 * (scalarPr1 / ((std::hypotf(positionDifference1.x, positionDifference1.y)) * (std::hypotf(positionDifference1.x, positionDifference1.y))));
+                    speed[j] = speed[j] - positionDifference2 * (scalarPr2 / ((std::hypotf(positionDifference2.x, positionDifference2.y)) * (std::hypotf(positionDifference2.x, positionDifference2.y))));
+                }
             }
         }
-    }
+        for (int i = 0; i < std::size(balls); ++i)
+        {
+            minStep = speed[i] * time / 5.f;
+            newBallPos = balls[i].getPosition() + minStep;
 
-    for (int i = 0; i < std::size(balls); ++i)
-    {
-        minStep = speed[i] * time / 2.f;
-        newBallPos = balls[i].getPosition() + minStep;
-
-        if (balls[i].getPosition().y + balls[i].getRadius() > WINDOW_HEIGHT)
-        {
-            speed[i].y = -fabs(speed[i].y);
-            newBallPos.y = WINDOW_HEIGHT - balls[i].getRadius();
+            if (balls[i].getPosition().y + balls[i].getRadius() > WINDOW_HEIGHT)
+            {
+                speed[i].y = -fabs(speed[i].y);
+                newBallPos.y = WINDOW_HEIGHT - balls[i].getRadius();
+            }
+            if (balls[i].getPosition().y - balls[i].getRadius() < 0)
+            {
+                speed[i].y = fabs(speed[i].y);
+                newBallPos.y = balls[i].getRadius();
+            }
+            if (balls[i].getPosition().x + balls[i].getRadius() > WINDOW_WIDTH)
+            {
+                speed[i].x = -fabs(speed[i].x);
+                newBallPos.x = WINDOW_WIDTH - balls[i].getRadius();
+            }
+            if (balls[i].getPosition().x - balls[i].getRadius() < 0)
+            {
+                speed[i].x = fabs(speed[i].x);
+                newBallPos.x = balls[i].getRadius();
+            }
+            balls[i].setPosition(newBallPos);
         }
-        if (balls[i].getPosition().y - balls[i].getRadius() < 0)
-        {
-            speed[i].y = fabs(speed[i].y);
-            newBallPos.y = balls[i].getRadius();
-        }
-        if (balls[i].getPosition().x + balls[i].getRadius() > WINDOW_WIDTH)
-        {
-            speed[i].x = -fabs(speed[i].x);
-            newBallPos.x = WINDOW_WIDTH - balls[i].getRadius();
-        }
-        if (balls[i].getPosition().x - balls[i].getRadius() < 0)
-        {
-            speed[i].x = fabs(speed[i].x);
-            speed[i].y = fabs(speed[i].y);
-            newBallPos.x = balls[i].getRadius();
-        }
-        balls[i].setPosition(newBallPos);
     }
 }
 
