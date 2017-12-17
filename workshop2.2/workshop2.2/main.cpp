@@ -8,22 +8,11 @@
 #include <random>
 #include <cassert>
 
-int main()
+constexpr unsigned WINDOW_WIDTH = 800;
+constexpr unsigned WINDOW_HEIGHT = 600;
+
+void initBalls(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &speed)
 {
-    constexpr unsigned WINDOW_WIDTH = 800;
-    constexpr unsigned WINDOW_HEIGHT = 600;
-
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop2.2");
-
-    std::vector<sf::CircleShape> balls(5);
-    std::vector<sf::Vector2f> speed(5);
-
-    sf::Clock clock;
-    float time;
-
-    sf::Vector2f minStep;
-    sf::Vector2f newBallPos;
-
     for (int i = 0; i < std::size(balls); ++i)
     {
         if (i == 0)
@@ -34,7 +23,7 @@ int main()
         if (i == 1)
         {
             balls[i].setPosition({180.f, 500.f});
-            speed[i] = {2000.f, 100.f};
+            speed[i] = {20.f, 100.f};
         }
         if (i == 2)
         {
@@ -55,20 +44,14 @@ int main()
         balls[i].setRadius(i * 10 + 20);
         balls[i].setOrigin({balls[i].getRadius(), balls[i].getRadius()});
     }
+}
 
-    while (window.isOpen())
+void update(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &speed, sf::RenderWindow &window, float time)
+{
+    sf::Vector2f minStep;
+    sf::Vector2f newBallPos;
+    for (int k = 0; k < 5; ++k)
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
-
-        time = clock.restart().asSeconds();
-
         for (int i = 0; i < std::size(balls); ++i)
         {
             for (int j = i + 1; j < std::size(balls); ++j)
@@ -86,10 +69,9 @@ int main()
                 }
             }
         }
-
         for (int i = 0; i < std::size(balls); ++i)
         {
-            minStep = speed[i] * time / 2.f;
+            minStep = speed[i] * time / 5.f;
             newBallPos = balls[i].getPosition() + minStep;
 
             if (balls[i].getPosition().y + balls[i].getRadius() > WINDOW_HEIGHT)
@@ -115,12 +97,46 @@ int main()
             }
             balls[i].setPosition(newBallPos);
         }
+    }
+}
 
-        window.clear();
-        for (int i = 0; i < balls.size(); ++i)
+void redrawFrame(sf::RenderWindow &window, std::vector<sf::CircleShape> balls)
+{
+    window.clear();
+    for (int i = 0; i < balls.size(); ++i)
+    {
+        window.draw(balls[i]);
+    }
+    window.display();
+}
+
+int main()
+{
+
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop2.2");
+
+    std::vector<sf::CircleShape> balls(5);
+    std::vector<sf::Vector2f> speed(5);
+
+    sf::Clock clock;
+    float time;
+
+    initBalls(balls, speed);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-            window.draw(balls[i]);
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
         }
-        window.display();
+
+        time = clock.restart().asSeconds();
+
+        update(balls, speed, window, time);
+        redrawFrame(window, balls);
     }
 }
