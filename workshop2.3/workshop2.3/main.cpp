@@ -97,7 +97,6 @@ void update(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &spee
             if (balls[i].getPosition().x - balls[i].getRadius() < 0)
             {
                 speed[i].x = fabs(speed[i].x);
-                speed[i].y = fabs(speed[i].y);
                 newBallPos.x = balls[i].getRadius();
             }
             balls[i].setPosition(newBallPos);
