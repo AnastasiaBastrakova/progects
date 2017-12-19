@@ -177,7 +177,7 @@ int main()
                 break;
             }
         }
-        float time = clock.restart().asSeconds();
+        time = clock.restart().asSeconds();
 
         update(balls, speed, window, time);
         redrawFrame(window, balls, spriteFont);
