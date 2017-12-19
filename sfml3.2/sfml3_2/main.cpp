@@ -50,9 +50,10 @@ initEye(sf::ConvexShape &eye, sf::Vector2f position)
 
 void update(const sf::Vector2f &mousePosition, sf::ConvexShape &eye, sf::Vector2f posEye)
 {
+    sf::Vector2f circleOrbit = {30, 50};
     const sf::Vector2f delta = mousePosition - posEye;
     const float cursorAngle = atan2(delta.y, delta.x);
-    eye.setPosition(posEye.x + 30 * std::cos(cursorAngle), posEye.y + 50 * std::sin(cursorAngle));
+    eye.setPosition(posEye.x + circleOrbit.x * std::cos(cursorAngle), posEye.y + circleOrbit.y * std::sin(cursorAngle));
 }
 
 int main()
