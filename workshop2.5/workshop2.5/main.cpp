@@ -53,7 +53,7 @@ void initBalls(std::vector<sf::CircleShape> &balls, std::vector<sf::Vector2f> &s
         flag = 0;
         for (int i = 0; i < (num - 1); ++i)
         {
-            while (std::hypotf((balls[i].getPosition().x - balls[num].getPosition().x), (balls[i].getPosition().y - balls[num].getPosition().y)) <= (balls[i].getRadius() + balls[num].getRadius() + 20))
+            while (std::hypotf((balls[i].getPosition().x - balls[num].getPosition().x), (balls[i].getPosition().y - balls[num].getPosition().y)) <= (balls[i].getRadius() + balls[num].getRadius()))
             {
                 float x = random(generator, balls[num].getRadius(), WINDOW_WIDTH - balls[num].getRadius());
                 float y = random(generator, balls[num].getRadius(), WINDOW_HEIGHT - balls[num].getRadius());
@@ -135,7 +135,7 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop2.5", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Workshop2.5 Rarely balls are created one above one", sf::Style::Default, settings);
 
     sf::Sprite spriteFont;
     sf::Texture font1;
@@ -156,6 +156,7 @@ int main()
 
     std::vector<sf::CircleShape> balls;
     std::vector<sf::Vector2f> speed;
+    std::vector<sf::Clock> lifetime;
 
     while (window.isOpen())
     {
@@ -168,10 +169,13 @@ int main()
                 window.close();
                 break;
             case sf::Event::MouseButtonPressed:
-                ++num;
-                balls.push_back(sf::CircleShape());
-                speed.push_back(sf::Vector2f());
-                initBalls(balls, speed, generator, font2, num);
+                if (event.key.code == sf::Mouse::Left)
+                {
+                    ++num;
+                    balls.push_back(sf::CircleShape());
+                    speed.push_back(sf::Vector2f());
+                    initBalls(balls, speed, generator, font2, num);
+                }
                 break;
             default:
                 break;
