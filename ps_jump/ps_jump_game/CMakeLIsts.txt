@@ -1,4 +1,6 @@
-add_executable(ps_jump_game main.cpp functions_declaration.hpp load_slide.cpp case_gamestatus main_update_play.cpp)
+add_executable(ps_jump_game main.cpp functions_declaration.hpp load_slide.cpp 
+case_gamestatus.cpp main_update_play.cpp case_gamestatus_slide.cpp draw_slide.cpp
+style_of_game.cpp)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 

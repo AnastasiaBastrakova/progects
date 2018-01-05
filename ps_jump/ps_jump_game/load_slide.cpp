@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+#include <vector>
 
 //изначальная графика слайдов
 
@@ -32,13 +33,22 @@ void slideLevelChoice(sf::RenderWindow &window, GameScene &scene)
     window.setTitle("Select level");
 }
 
+void resultOfGame(sf::RenderWindow &window, GameScene &scene)
+{
+    // fon, title
+    scene.screenFon.loadFromFile("images/end.png");
+    scene.screenSpriteFon.setTexture(scene.screenFon);
+    window.setTitle("Result");
+}
+
 // инициализация элементов структуры
 void elementInitialisation(sf::RenderWindow &window, GameScene &scene)
 {
     scene.gameSlideId = 1;
+    scene.changePlayer = 1;
     scene.changeLevel = 1;
 
-    // players
+    // грузим выбор игрока
     scene.playerTexture1.loadFromFile("images/beebig.png");
     scene.player1.setTexture(scene.playerTexture1);
     scene.player1.setPosition(150, 250);
@@ -51,7 +61,7 @@ void elementInitialisation(sf::RenderWindow &window, GameScene &scene)
     scene.player3.setTexture(scene.playerTexture3);
     scene.player3.setPosition(550, 250);
 
-    //buttons
+    // грузим правую и левую кнопки
     scene.buttonRight.setSize({200, 50});
     scene.buttonRight.setPosition(450, 450);
     scene.buttonRight.setFillColor(sf::Color(0, 0, 0, 90));
@@ -62,6 +72,7 @@ void elementInitialisation(sf::RenderWindow &window, GameScene &scene)
     scene.buttonLeft.setFillColor(sf::Color(0, 0, 0, 90));
     scene.buttonLeft.setOutlineThickness(2);
 
+    // грузим выделение выбора
     scene.borderPlayerChange.setSize({100, 100});
     scene.borderPlayerChange.setFillColor(sf::Color(0, 0, 0, 90));
     scene.borderPlayerChange.setOutlineThickness(2);
@@ -72,7 +83,7 @@ void elementInitialisation(sf::RenderWindow &window, GameScene &scene)
     scene.borderLevelChange.setOutlineThickness(2);
     scene.borderLevelChange.setPosition(150, 200);
 
-    //buttons text
+    // грузим тексты
     scene.font.loadFromFile("a_MachinaOrtoSls_Bold.ttf");
 
     scene.textNext.setFont(scene.font);
@@ -110,6 +121,21 @@ void elementInitialisation(sf::RenderWindow &window, GameScene &scene)
     scene.textStart.setFillColor(sf::Color::Red);
     scene.textStart.setStyle(sf::Text::Underlined);
 
+    scene.textNewGame.setFont(scene.font);
+    scene.textNewGame.setString("New Game $");
+    scene.textNewGame.setPosition(490, 455);
+    scene.textNewGame.setCharacterSize(28);
+    scene.textNewGame.setFillColor(sf::Color::Red);
+    scene.textNewGame.setStyle(sf::Text::Underlined);
+
+    scene.textMenu.setFont(scene.font);
+    scene.textMenu.setString("<> Menu");
+    scene.textMenu.setPosition(210, 455);
+    scene.textMenu.setCharacterSize(28);
+    scene.textMenu.setFillColor(sf::Color::Red);
+    scene.textMenu.setStyle(sf::Text::Underlined);
+
+    // грузим выбор уровня
     scene.level1.setFont(scene.font);
     scene.level1.setString("Level 'Laig'");
     scene.level1.setPosition(150, 200);

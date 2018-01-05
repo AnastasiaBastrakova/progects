@@ -1,4 +1,5 @@
 #include "functions_declaration.hpp"
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -30,7 +31,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}),
                             "PS Jump Game", sf::Style::Titlebar, settings);
 
-    GameScene scene;                      // графика игры (в function_declaration.hpp)
+    GameScene scene;                      // графика слайдов(в function_declaration.hpp)
     elementInitialisation(window, scene); // инициализация элементов структуры (в load_slide.cpp)
 
     splashScreen(window, scene); //грузим первый слайд (в load_slide.cpp)
