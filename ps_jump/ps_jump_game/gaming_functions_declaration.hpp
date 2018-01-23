@@ -29,6 +29,6 @@ struct GameStyle
     sf::RectangleShape bottomLine;
 };
 
-void downloadGraphics(sf::RenderWindow &window, int &changePlayer, int &changeLevel, GameStyle &styleOfGame);
+void loadGraphics(sf::RenderWindow &window, int &changePlayer, int &changeLevel, GameStyle &styleOfGame);
 
 void draw4(sf::RenderWindow &window, GameStyle &styleOfGame, std::vector<sf::RectangleShape> platform); // рисуем четвертый слайд

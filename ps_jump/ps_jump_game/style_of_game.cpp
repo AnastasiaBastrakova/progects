@@ -11,7 +11,7 @@
 #include <ctime>
 #include <iostream>
 
-void downloadGraphics(sf::RenderWindow &window, int &changePlayer, int &changeLevel, GameStyle &styleOfGame)
+void loadGraphics(sf::RenderWindow &window, int &changePlayer, int &changeLevel, GameStyle &styleOfGame)
 {
     // фон
     switch (changeLevel)

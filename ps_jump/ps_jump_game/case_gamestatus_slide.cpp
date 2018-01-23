@@ -98,7 +98,7 @@ void caseGamestatus3(sf::RenderWindow &window, GameScene &scene, sf::Event &even
         if ((mousePosition.x > scene.level1.getPosition().x) &&
             (mousePosition.x < scene.level1.getPosition().x + 300) &&
             (mousePosition.y > scene.level1.getPosition().y) &&
-            (mousePosition.y < scene.level1.getPosition().y + 100))
+            (mousePosition.y < scene.level1.getPosition().y + 50))
         {
             scene.changeLevel = 1;
             scene.borderLevelChange.setPosition(scene.level1.getPosition());
@@ -106,7 +106,7 @@ void caseGamestatus3(sf::RenderWindow &window, GameScene &scene, sf::Event &even
         else if ((mousePosition.x > scene.level2.getPosition().x) &&
                  (mousePosition.x < scene.level2.getPosition().x + 300) &&
                  (mousePosition.y > scene.level2.getPosition().y) &&
-                 (mousePosition.y < scene.level2.getPosition().y + 100))
+                 (mousePosition.y < scene.level2.getPosition().y + 50))
         {
             scene.changeLevel = 2;
             scene.borderLevelChange.setPosition(scene.level2.getPosition());
@@ -114,7 +114,7 @@ void caseGamestatus3(sf::RenderWindow &window, GameScene &scene, sf::Event &even
         else if ((mousePosition.x > scene.level3.getPosition().x) &&
                  (mousePosition.x < scene.level3.getPosition().x + 300) &&
                  (mousePosition.y > scene.level3.getPosition().y) &&
-                 (mousePosition.y < scene.level3.getPosition().y + 100))
+                 (mousePosition.y < scene.level3.getPosition().y + 50))
         {
             scene.changeLevel = 3;
             scene.borderLevelChange.setPosition(scene.level3.getPosition());

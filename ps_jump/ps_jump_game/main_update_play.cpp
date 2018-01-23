@@ -41,7 +41,7 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
 
     // загрузка графики в зависимости от уровня и игрока
     GameStyle styleOfGame;
-    downloadGraphics(window, changePlayer, changeLevel, styleOfGame); // грузим графику игры (в style_of_game.cpp)
+    loadGraphics(window, changePlayer, changeLevel, styleOfGame); // грузим графику игры (в style_of_game.cpp)
 
     // объявление переменных
     int isGameOver = 0;
@@ -60,6 +60,7 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
         platform[i].setOutlineThickness(2);
     }
 
+    // изначальное положение всех платформ
     platform[1].setPosition(350, 550);
     platform[2].setPosition(500, 450);
     platform[3].setPosition(100, 350);
@@ -84,6 +85,7 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
     styleOfGame.topRightLine.setOutlineThickness(2);
     styleOfGame.topRightLine.setPosition(598, 2);
 
+    // грузим шрифт или фон
     styleOfGame.font.loadFromFile("a_MachinaOrtoSls_Bold.ttf");
     styleOfGame.score.setFont(styleOfGame.font);
 
@@ -92,7 +94,13 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
 
     while (isGameOver == 0)
     {
+        // переменная, преобразующая число в текст
         std::ostringstream playerScoreString;
+
+        // время кадра
+        deltaTime = clock.restart().asSeconds();
+
+        // если какая-то платформа находится ниже окна, оно перемещается наверх
         for (int i = 0; i < std::size(platform); ++i)
         {
             if (platform[i].getPosition().y >= 700)
@@ -101,8 +109,7 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
             }
         }
 
-        deltaTime = clock.restart().asSeconds();
-
+        // отталкивание от платформы
         for (int i = 0; i < std::size(platform); ++i)
         {
             if ((styleOfGame.player.getPosition().x > platform[i].getPosition().x - 35) &&
@@ -114,6 +121,7 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
             }
         }
 
+        // движени платформ вниз
         if ((styleOfGame.player.getPosition().y <= 300) && (speedY <= 0))
         {
             speedY = speedY + g * deltaTime;
@@ -122,13 +130,14 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
                 platform[i].setPosition(platform[i].getPosition().x, platform[i].getPosition().y - speedY * deltaTime);
             }
             styleOfGame.player.setPosition(styleOfGame.player.getPosition().x, styleOfGame.player.getPosition().y);
-
             scoreOfPlay = round(scoreOfPlay + speedY * deltaTime);
         }
+        // условие проигрыша
         else if (styleOfGame.player.getPosition().y >= 600)
         {
             isGameOver = 1;
         }
+        // движение игрока вверх
         else
         {
             speedY = speedY + g * deltaTime;
@@ -136,25 +145,27 @@ void updatePlay(sf::RenderWindow &window, int &changePlayer, int &changeLevel)
             scoreOfPlay = round(scoreOfPlay);
         }
 
+        // обработка события (движение по горизонтали)
         sf::Event event;
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            if (styleOfGame.player.getPosition().x + 35 <= 800)
+            if (styleOfGame.player.getPosition().x + 30 <= 800)
             {
                 styleOfGame.player.setPosition(styleOfGame.player.getPosition().x + 600 * deltaTime, styleOfGame.player.getPosition().y);
                 styleOfGame.player.setScale(-0.75, 0.75);
             }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            if (styleOfGame.player.getPosition().x - 35 >= 0)
+            if (styleOfGame.player.getPosition().x - 30 >= 0)
             {
                 styleOfGame.player.setPosition(styleOfGame.player.getPosition().x - 600 * deltaTime, styleOfGame.player.getPosition().y);
                 styleOfGame.player.setScale(0.75, 0.75);
             }
 
+        // формируем счёт
         playerScoreString << -scoreOfPlay;                               //формируем строку
         styleOfGame.score.setString("Score:" + playerScoreString.str()); //вызываем сформированную выше строку методом .str()
         styleOfGame.score.setPosition(600, 3);
 
+        // рисуем кадр
         draw4(window, styleOfGame, platform);
     }
 }
